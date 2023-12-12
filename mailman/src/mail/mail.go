@@ -1,4 +1,4 @@
-package src
+package mail
 
 import (
 	"crypto/tls"
@@ -8,14 +8,14 @@ import (
 	gomail "gopkg.in/mail.v2"
 )
 
+var senderMail = os.Getenv("ADMIN_EMAIL")
+var senderPassword = os.Getenv("ADMIN_PASSWORD")
+var subject = os.Getenv("SUBJECT")
+var smtpHost = os.Getenv("SMTP_HOST")
+var smtpPort = os.Getenv("SMTP_PORT")
+
 // SendMail recieves an email address and content and sends the content to the address
 func SendMail(email string, msg string) error {
-
-	senderMail := os.Getenv("ADMIN_EMAIL")
-	senderPassword := os.Getenv("ADMIN_PASSWORD")
-	subject := os.Getenv("SUBJECT")
-	smtpHost := os.Getenv("SMTP_HOST")
-	smtpPort := os.Getenv("SMTP_PORT")
 
 	port, err := strconv.Atoi(smtpPort)
 	if err != nil {
