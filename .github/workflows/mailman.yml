@@ -10,7 +10,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-golang@v3
+      - uses: actions/setup-go@v4
       - uses: actions/checkout@v2
       - name: Run tests
         run: |
