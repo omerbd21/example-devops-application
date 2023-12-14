@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import APIRouter
 from internal import Story, RabbitMQConnection, EdenAI
 import pika
 import os

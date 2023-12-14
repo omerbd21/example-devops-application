@@ -6,8 +6,8 @@ HEADERS = {"Authorization": "Bearer " + os.getenv("EDENAI_TOKEN")}
 URL = "https://api.edenai.run/v2/text/generation"
 PROVIDER = "openai"
 
-class EdenAI:
-    def __init__(self, text, lines):
+class EdenAI():
+    def __init__(self, text: str, lines: int):
         self.text = text
         self.lines = lines
     def run(self):
