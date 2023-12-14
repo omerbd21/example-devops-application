@@ -1,0 +1,21 @@
+name: mailman 
+
+on:
+  push:
+    paths:
+      - 'mailman/**'
+
+
+jobs:  
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-go@v4
+      - uses: actions/checkout@v2
+      - name: Run tests
+        run: |
+          cd mailman/
+          go test -v ./...
+
+
+
