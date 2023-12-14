@@ -18,11 +18,3 @@ class RabbitMQConnection:
 
         except Exception as e:
             raise Exception(f"Error publishing message: {str(e)}")
-    
-    def get_message(self, queue):
-        try:
-            self.channel.basic_get(queue=queue)
-            return {"status": "Message fetched successfully"}
-
-        except Exception as e:
-            raise Exception(f"Error publishing message: {str(e)}")
