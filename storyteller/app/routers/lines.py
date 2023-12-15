@@ -1,17 +1,17 @@
-from fastapi import APIRouter
-from internal import Story, RabbitMQConnection, EdenAI
+from fastapi import APIRouter, Request
 import pika
 import os
+from internal import Story, EdenAI
+
 
 router = APIRouter()
-rabbitmq_connection = RabbitMQConnection(host='localhost', username=os.getenv('username'), password=os.getenv('password'))
 
 @router.post("/story/queue/", tags=["story"])
-async def queue_line(story: Story):
+async def queue_line(story: Story, request: Request):
     eden = EdenAI(story.word, story.lines)
-    story = eden.run()
-    rabbitmq_connection.channel.basic_publish(exchange='', routing_key='lines', body=story, properties=pika.BasicProperties(
+    generated_story = eden.run()
+    request.app.rabbitmq_connection.channel.basic_publish(exchange='', routing_key=os.getenv("QUEUE"), body=story, properties=pika.BasicProperties(
                           headers={'Content-Type': 'text/plain;charset=UTF-8'}),)
-    return story
+    return generated_story
 
 
