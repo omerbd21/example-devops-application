@@ -24,6 +24,8 @@ jobs:
       - name: Run tests
         env:
           EDENAI_TOKEN: ${{ secrets.EDENAI_TOKEN }}
+          EDENAI_PROVIDER: ${{ variables.EDENAI_PROVIDER }}
+          EDENAI_URL: ${{ variables.EDENAI_URL }}
         run: |
           cd storyteller
           python -m unittest discover app/tests
@@ -41,8 +43,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
-          context: storyteller/
-          file: ./Dockerfile
+          context: .
+          file: ./storyteller/Dockerfile
           build-args: |
             EDENAI_URL=${{ variables.EDENAI_URL }}
             EDENAI_PROVIDER=${{ variables.EDENAI_PROVIDER }}
