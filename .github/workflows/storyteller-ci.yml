@@ -24,8 +24,8 @@ jobs:
       - name: Run tests
         env:
           EDENAI_TOKEN: ${{ secrets.EDENAI_TOKEN }}
-          EDENAI_PROVIDER: ${{ env.EDENAI_PROVIDER }}
-          EDENAI_URL: ${{ env.EDENAI_URL }}
+          EDENAI_PROVIDER: ${{ vars.EDENAI_PROVIDER }}
+          EDENAI_URL: ${{ vars.EDENAI_URL }}
         run: |
           cd storyteller
           python -m unittest discover app/tests
@@ -46,9 +46,9 @@ jobs:
           context: .
           file: ./storyteller/Dockerfile
           build-args: |
-            EDENAI_URL=${{ env.EDENAI_URL }}
-            EDENAI_PROVIDER=${{ env.EDENAI_PROVIDER }}
-            STORYTELLER_PROVIDER=${{ env.STORYTELLER_PROVIDER }}
+            EDENAI_URL=${{ vars.EDENAI_URL }}
+            EDENAI_PROVIDER=${{ vars.EDENAI_PROVIDER }}
+            STORYTELLER_PROVIDER=${{ vars.STORYTELLER_PROVIDER }}
           push: true
           tags: omerbd/storyteller:${{ steps.version.outputs.version }}
 
